@@ -1,0 +1,509 @@
+/* 
+
+This file handles much of the appearances of the morphemes section.
+This project largely depends upon Bootstrap 4.0, a library of prewritten code that comes with
+a lot of basic things for layout and cool animations. This file just tweaks some of those components a bit, and 
+optimizes the layout for mobile devices. You should only alter this file if you want to change something about the 
+appearance or layout of the pages. 
+
+*/
+
+/* BASIC HTML RESETS */
+html{
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0; /* The loading animation code came with this property set. */
+	color: #000000;
+	font-family: "Roboto Slab", sans-serif;
+	font-size: 1.125rem;
+	background-color: #f9f9f9;
+}
+
+p{
+	font-size:1.25rem;
+}
+
+a {
+	color: black;
+}
+
+input{
+	margin-right:1rem;
+}
+
+input, select, textarea{
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+	transition: all 0.4s;
+}
+
+input:focus, select:focus, textarea:focus{
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2) !important;
+}
+
+.hidden{
+	display:none;
+}
+
+/**/
+
+/* LAYOUT: GRID, JUMBOTRON, etc.*/
+
+.bodyContainer .row{
+	margin-bottom:1.125rem;
+}
+
+.jumbotron-fluid {
+	box-shadow: inset 0px 0px 0 2000px rgba(0, 0, 0, 0.2);
+	margin-top: 4rem;
+	margin-bottom:1rem;
+}
+/**/
+
+/* Black box creates a semi-transparent black background around its contents. It is good for laying text
+on top of an image. */
+
+.black-box {
+  background-color: rgba(0, 0, 0, 0.55);
+	color: #ffffff;
+	padding: 1.5rem;
+	border-radius: 1rem;
+}
+
+.black-box--full{
+	width:100%;
+	border-radius:0;
+}
+/**/
+
+/* BUTTONS */
+.btn{
+	border-radius:1rem !important;
+}
+
+.btn-primary, .btn-success, .btn-danger, .btn-warning, .btn-info, .btn-primary:focus, .btn-success:focus, .btn-danger:focus, .btn-warning:focus, .btn-info:focus {
+	z-index: 10;
+	transition: all 0.2s ease-in-out;
+	box-shadow: 0 0.25rem .5rem rgba(0, 0, 0, 0.2);
+	outline: none;
+}
+
+.btn-primary:hover, .btn-success:hover, .btn-danger:hover, .btn-warning:hover, .btn-info:hover{
+	transform: translateY(-0.2rem);
+	z-index: 20;
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+	color: white;
+}
+
+.btn-primary:active, .btn-success:active, .btn-danger:active, .btn-warning:active, .btn-info:active{
+	transform: scale(.9);
+	box-shadow: 0 0.3rem .75rem rgba(0, 0, 0, 0.2);
+}
+
+/**/
+
+/* LINK COLORS */
+.foundInDictionary{
+	color: #008cba;
+}
+
+.foundInGrammarPage{
+	color: #c91864;
+}
+
+.foundInGrammarPage:hover{
+	color: #c91864;
+}
+
+.foundInPhrasicon{
+	color:#368a55;
+}
+
+.foundInPhrasicon:hover{
+	color:#47b871;
+}
+
+.foundInStoryCorpus{
+	color: #CD853F;
+}
+
+.foundInStoryCorpus:hover{
+	color: #A0522D;
+}
+
+.foundInDictionary:hover, .foundInGrammarPage:hover, .foundInPhrasicon:hover, .foundInStoryCorpus:hover{
+	text-decoration:none;
+	opacity: 0.7;
+}
+/**/
+
+/* FOOTER */
+
+.footer{
+	background-color: #e0e0e0;
+	padding-top: 2rem;
+	padding-bottom: 0.5rem;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+	border-radius: -1rem;
+	margin-top: 1rem;
+}
+
+/**/
+
+/* The remaining code in this file powers the loading animation. */
+
+.drawing{
+    width: 50vw;
+    height: 25vh;
+    position: relative;
+    display: block;
+    background-color: inherit;
+    margin: 0 auto;
+}
+
+
+
+
+/* -- Loading thingy --*/
+.loading-dot {
+    border-radius:100%;
+    height:10px;
+    width:10px;
+    background-color: #3a3a3a;
+    position:absolute;
+    left:0;
+    right:0;
+    margin:auto;
+    top:0;
+    bottom:0;
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+    -webkit-animation: load 3s infinite linear;
+    -moz-animation: load 3s infinite linear;
+    -o-animation: load 3s infinite linear;
+    animation:load 3s infinite linear;
+}
+
+
+@-webkit-keyframes load {
+  0%   {
+    -webkit-transform: translate(0px,0px),rotate(0deg); 
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+  25%{
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    -40px -40px 0px 0px #3a3a3a,40px 40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a;
+  }
+
+  50%{
+    box-shadow: 0px -40px 0px 0px #3a3a3a,0px 40px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,
+    -40px -40px 0px 0px #3a3a3a,40px 40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a;
+  }
+
+  70%{
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+  }
+
+  75%{
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    height:10px;
+    width:10px;
+  }
+
+  80%{
+    -webkit-transform: translate(0px,0px) rotate(360deg); 
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a;
+    height:40px;
+    width:40px;
+  }
+
+  85%{
+    -webkit-transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a; 
+    height:40px;
+    width:40px;
+  }
+
+  90%{
+    -webkit-transform: translate(0px,0px) rotate(360deg); 
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a; 
+    height:10px;
+    width:10px;
+  }
+
+  95%{
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+  100%{
+    -webkit-transform: rotate(360deg);
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+}
+
+@-moz-keyframes load {
+  0%   {
+    -moz-transform: translate(0px,0px),rotate(0deg); 
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+  25%{
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    -40px -40px 0px 0px #3a3a3a,40px 40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a;
+  }
+
+  50%{
+    box-shadow: 0px -40px 0px 0px #3a3a3a,0px 40px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,
+    -40px -40px 0px 0px #3a3a3a,40px 40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a;
+  }
+
+  70%{
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+  }
+
+  75%{
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    height:10px;
+    width:10px;
+  }
+
+  80%{
+    -moz-transform: translate(0px,0px) rotate(360deg); 
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a;
+    height:40px;
+    width:40px;
+  }
+
+  85%{
+    -moz-transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a; 
+    height:40px;
+    width:40px;
+  }
+
+  90%{
+    -moz-transform: translate(0px,0px) rotate(360deg); 
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a; 
+    height:10px;
+    width:10px;
+  }
+
+  95%{
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+  100%{
+    -moz-transform: rotate(360deg);
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+}
+
+@keyframes load {
+  0%   {
+    transform: translate(0px,0px),rotate(0deg); 
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+  25%{
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    -40px -40px 0px 0px #3a3a3a,40px 40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a;
+  }
+
+  50%{
+    box-shadow: 0px -40px 0px 0px #3a3a3a,0px 40px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,
+    -40px -40px 0px 0px #3a3a3a,40px 40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a;
+  }
+
+  70%{
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+  }
+
+  75%{
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    height:10px;
+    width:10px;
+  }
+
+  80%{
+    transform: translate(0px,0px) rotate(360deg); 
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a;
+    height:40px;
+    width:40px;
+  }
+
+  85%{
+    transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a; 
+    height:40px;
+    width:40px;
+  }
+
+  90%{
+    transform: translate(0px,0px) rotate(360deg); 
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a; 
+    height:10px;
+    width:10px;
+  }
+
+  95%{
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+  100%{
+    transform: rotate(360deg);
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+}
+@-o-keyframes load {
+  0%   {
+    -o-transforms: translate(0px,0px),rotate(0deg); 
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+  25%{
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    -40px -40px 0px 0px #3a3a3a,40px 40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a;
+  }
+
+  50%{
+    box-shadow: 0px -40px 0px 0px #3a3a3a,0px 40px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,
+    -40px -40px 0px 0px #3a3a3a,40px 40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a;
+  }
+
+  70%{
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+  }
+
+  75%{
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    height:10px;
+    width:10px;
+  }
+
+  80%{
+    -o-transforms: translate(0px,0px) rotate(360deg); 
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a;
+    height:40px;
+    width:40px;
+  }
+
+  85%{
+    -o-transforms: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a; 
+    height:40px;
+    width:40px;
+  }
+
+  90%{
+    -o-transforms: translate(0px,0px) rotate(360deg); 
+    box-shadow: 0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,
+    0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a,0px 0px 0px 0px #3a3a3a;
+    background-color: #3a3a3a; 
+    height:10px;
+    width:10px;
+  }
+
+  95%{
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+  100%{
+    -o-transforms: rotate(360deg);
+    box-shadow: 0px 40px 0px 0px #3a3a3a,0px -40px 0px 0px #3a3a3a,40px 0px 0px 0px #3a3a3a,-40px 0px 0px 0px #3a3a3a,
+    40px 40px 0px 0px #3a3a3a,-40px -40px 0px 0px #3a3a3a,40px -40px 0px 0px #3a3a3a,-40px 40px 0px 0px #3a3a3a;
+  }
+
+}
+
+/* the code below powers the overlay */
+div.fadeMe {
+  opacity:0.7;
+  filter: alpha(opacity=20);
+  background-color:#000; 
+  width:100%; 
+  height:100%; 
+  z-index:10;
+  top:0; 
+  left:0; 
+  position:fixed; 
+}
+
+div.popup {
+  position: fixed; 
+  left: 50%; top: 50%;
+  opacity:0.4;
+  width: 50%; height: 50%;
+  background: white;     
+  border-radius: 3px;
+  padding: 10px;
+  z-index: 11;
+  height: 7%;
+  width: 20%
+}
+
+div div.popup {
+    position: fixed;
+    top: 0;
+    right: 10%;
+    bottom: 10%;
+    left: 10%;
+    background-color: red;
+    background: blue;
+    opacity: .6;
+    z-index: 9999999;
+    text-align:center;
+  }
+
+ .fadeMe .drawing{
+    height: 100vh;
+  }
+ .fadeMe .loading-dot{
+    background-color: #ffffff;
+  }

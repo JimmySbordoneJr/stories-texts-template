@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<storycorpus>
+  <metadata>
+    <!-- Open Language Archives Community Metadata -->
+    <!-- There are 8 things for you to edit in this file. When you are done, you can delete this line (line 5) -->
+    <title>Your Language Stories and Texts</title>
+    <contributor type="olac:role" code="primary investigator">Name, LastName</contributor>
+    <contributor type="olac:role" code="annotator">Name, LastName</contributor>
+    <contributor type="olac:role" code="creator">Name, LastName</contributor>
+    <modified type="dcterms:W3CDTF">2019-03-01</modified>
+    <format type="dcterms:IMT">text/xml</format>
+    <language type="olac:language" code="pej" lang="pej">Your Language</language>
+    <language type="olac:language" code="eng" lang="en">Translation Language</language>
+    <subject type="olac:language" code="pej" lang="pej">Your Language</subject>
+    <subject type="olac:language" code="eng" lang="en">Translation Language</subject>
+  </metadata>
+</storycorpus>
