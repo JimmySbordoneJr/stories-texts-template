@@ -40,7 +40,7 @@ In the morphemes folder:
 - morphemes.xml
 - morpheme_update_page.php
 
-In the Texts Folder: 
+In the texts Folder: 
 - draft.php
 - error_message.php
 - index.php
@@ -49,7 +49,7 @@ In the Texts Folder:
 - tutorial.php
 - valid_story.php
 - valid_draft.php
-- In the JS folder, glossLinking.js
+- In the js folder, glossLinking.js
 - In the update folder
   - index.php
   - inject.php
