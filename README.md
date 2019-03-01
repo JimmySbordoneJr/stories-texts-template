@@ -1,6 +1,6 @@
 # Interactive Bilingual Stories & Texts
 
-This is the template code for creating interactive bilingual stories and texts which was presented at the 6th International Conference on Language Documentation & Conservation (ICLDC) as "Web Design Strategies for Interactive Stories and Texts". This user's guide will be expanded in the coming weeks to include more detailed instructions for downloading and using our code, but everything you need to get your own stories and texts database up and running is included. 
+This is the template code for creating interactive bilingual stories and texts which was presented at the 6th International Conference on Language Documentation & Conservation (ICLDC) as "Web Design Strategies for Interactive Stories and Texts". This user's guide will be expanded in the coming weeks to include more detailed instructions for downloading and using our code, but the code you need to get your own stories and texts database up and running is here and ready to go! 
 
 # Getting Started
 
