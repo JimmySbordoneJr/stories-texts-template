@@ -18,7 +18,13 @@ To view a live example of interactive stories and texts in action, view [Norther
 
 Depending on the structure of your website, the instructions for how to upload the code to your website will vary greatly. If you have questions about how to upload the code to your site, email Jimmy Sbordone at jsbordone96@gmail.com
 
-Most web hosting services, such as Bluehost, allow you to access files either by logging in online or by using an File Transfer Protocol program like FileZilla. When you log into your site using FileZilla, for example, you can simply drag and drop files to upload them onto the website. In most cases, they will go into a directory named public_html or htdocs. In the coming weeks, more instructions will be given here, but feel free to ask us questions as they arise. We'd love to help you add interactive stories to your revitalization project!
+Most web hosting services, such as Bluehost, allow you to access files either by logging in online or by using an File Transfer Protocol program like FileZilla. When you log into your site using FileZilla, for example, you can simply drag and drop files to upload them onto the website. In most cases, they will go into a directory named public_html or htdocs. To upload this code, drag the texts folder and morphemes folder into this directory. 
+
+In the coming weeks, more instructions will be given here, but feel free to ask us questions as they arise. We'd love to help you add interactive stories to your revitalization project!
+
+# Adding & Editing Stories
+
+Once the files have been uploaded to your website, go to yourwebsite.com/texts/update and log in. 
 
 # Editing the Code
 
