@@ -1,4 +1,4 @@
-# stories-texts-template
+# Interactive Bilingual Stories & Texts
 
 This is the template code for creating interactive bilingual stories and texts which was presented at the 6th International Conference on Language Documentation & Conservation (ICLDC). This user's guide will be expanded in the coming weeks to include more detailed instructions for downloading and using our code, but everything you need to get your own stories and texts database up and running is included. 
 
@@ -39,3 +39,4 @@ Here are some ideas for ways to improve this project that we may pursue in the f
 - A merge morphemes button would allow users to combine the contents of that morpheme with that of the following morpheme into one. 
 - Adding a section to the update page that would let users see what files are in the sound files directory, handouts directory, or images directory and delete them or replace them.
 - Autosuggest multiple narrators and interviewers in the update page. Currently, it only suggests a single name.
+- We want to have a page where we show links to other tribes' versions of a story. We are currently working on incorporating this feature into our database.
