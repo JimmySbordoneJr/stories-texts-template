@@ -25,7 +25,7 @@ Most web hosting services, such as Bluehost, allow you to access files either by
 You can use any text editor to edit these files. Some popular ones include Notepad, Notepad++, Atom, Sublime, and Visual Studio Code. Personally, I find Visual Studio Code to be the best free text editor for editing these files. It color codes the code and underlines syntax errors, which is extremely helpful for novice and advanced programmers alike. A link to Visual Studio Code can be found [here](https://code.visualstudio.com/). 
 
 # A Note About File Uploading
-Your web hosting service may limit the amount of files that can be uploaded at once. If you exceed that limit, you may get an error message, and the files will not be uploaded. If this happens, you may be able to increase the limit on file uploading by talking with your web hosting provider (such as GoDaddy or Bluehost). 
+There is a possible issue with users uploading images, sound files, and handout files. Your web hosting service may limit the amount of files that can be uploaded at once. If you exceed that limit, you may get an error message, and the files will not be uploaded. If this happens, you may be able to increase the limit on file uploading by talking with your web hosting provider (such as GoDaddy or Bluehost). 
 
 # Using the Update Page
 When entering stories and editing them, you can enter simple text into the fields. Additionally, you can include HTML markup in the fields, which makes it easier to give unique styling to certain parts of your text. You may want to make a stretch of text bold, or italic, for example. 
