@@ -30,6 +30,31 @@ Once the files have been uploaded to your website, go to yourwebsite.com/texts/u
 
 You can use any text editor to edit these files. Some popular ones include Notepad, Notepad++, Atom, Sublime, and Visual Studio Code. Personally, I find Visual Studio Code to be the best free text editor for editing these files. It color codes the code and underlines syntax errors, which is extremely helpful for novice and advanced programmers alike. A link to Visual Studio Code can be found [here](https://code.visualstudio.com/). 
 
+# Which Files Do I Need to Edit?
+
+There are only sixteen files you need to edit, and each of these files has instructions showing you what to edit. You simply replace our filler text with your own text by deleting our filler text and typing into the document, making sure to save it afterwards.
+
+In the morphemes folder:
+- index.php
+- inject.php
+- morphemes.xml
+- morpheme_update_page.php
+
+In the Texts Folder: 
+- draft.php
+- error_message.php
+- index.php
+- secretIndex.php
+- stories.xml
+- tutorial.php
+- valid_story.php
+- valid_draft.php
+- In the JS folder, glossLinking.js
+- In the update folder
+  - index.php
+  - inject.php
+  - story_update_page.php
+
 # A Note About File Uploading
 There is a possible issue with users uploading images, sound files, and handout files. Your web hosting service may limit the amount of files that can be uploaded at once. If you exceed that limit, you may get an error message, and the files will not be uploaded. If this happens, you may be able to increase the limit on file uploading by talking with your web hosting provider (such as GoDaddy or Bluehost). 
 
