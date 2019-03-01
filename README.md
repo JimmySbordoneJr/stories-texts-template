@@ -33,9 +33,9 @@ When entering stories and editing them, you can enter simple text into the field
 # Ambitious Goals for This Project
 
 Here are some ideas for ways to improve this project that we may pursue in the future.
--The segmentation function could greatly be improved by taking context or part of speech into effect.
--Automatically suggesting morphemes while typing in the Update page. We tried to implement this, but two implementations of this feature ground the pages to a halt, and our segmenter is effective enough that suggesting morphemes would not gain us much.
--Having the ability to mass edit multiple morphemes at once would be cool.
--A merge morphemes button would allow users to combine the contents of that morpheme with that of the following morpheme into one. 
--Adding a section to the update page that would let users see what files are in the sound files directory, handouts directory, or images directory and delete them or replace them.
--Autosuggest multiple narrators and interviewers in the update page. Currently, it only suggests a single name.
+- The segmentation function could greatly be improved by taking context or part of speech into effect.
+- Automatically suggesting morphemes while typing in the Update page. We tried to implement this, but two implementations of this feature ground the pages to a halt, and our segmenter is effective enough that suggesting morphemes would not gain us much.
+- Having the ability to mass edit multiple morphemes at once would be cool.
+- A merge morphemes button would allow users to combine the contents of that morpheme with that of the following morpheme into one. 
+- Adding a section to the update page that would let users see what files are in the sound files directory, handouts directory, or images directory and delete them or replace them.
+- Autosuggest multiple narrators and interviewers in the update page. Currently, it only suggests a single name.
