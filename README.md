@@ -71,3 +71,4 @@ Here are some ideas for ways to improve this project that we may pursue in the f
 - Adding a section to the update page that would let users see what files are in the sound files directory, handouts directory, or images directory and delete them or replace them.
 - Autosuggest multiple narrators and interviewers in the update page. Currently, it only suggests a single name.
 - We want to have a page where we show links to other tribes' versions of a story. We are currently working on incorporating this feature into our database.
+- On the story display pages, when the full breakdown for a line is open, have the translation and Northern Pomo occupy 100% of the available space.
