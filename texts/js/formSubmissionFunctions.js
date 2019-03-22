@@ -14,9 +14,9 @@ $(document).ready(function () {
                     alert("Query submitted. Entry created."); //=== Show Success Message==
                     clear('create');
                     document.getElementById("datalistContainer").innerHTML = "<datalist id=\"list_line1_g1\"></datalist>";
+                    location.reload(true);
                 });
                 $("#loadingAnimation1").remove();
-                location.reload(true);
             },
             error: function (data) {
                 $("#loadingAnimation1").fadeOut("slow", function () {
