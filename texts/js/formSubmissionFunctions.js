@@ -16,6 +16,7 @@ $(document).ready(function () {
                     document.getElementById("datalistContainer").innerHTML = "<datalist id=\"list_line1_g1\"></datalist>";
                 });
                 $("#loadingAnimation1").remove();
+                location.reload(true);
             },
             error: function (data) {
                 $("#loadingAnimation1").fadeOut("slow", function () {
