@@ -24,6 +24,8 @@ function getStorytoEdit() {
 				}
 				if (story == null) {
 					alert("Sorry, no story with that ID number exists.");
+					$("#loadingAnimation1").fadeOut("slow");
+					$("#loadingAnimation1").remove();
 					return;
 				}
 				document.getElementById("editTitle").value = story.getElementsByTagName("storytitle")[0].textContent;
