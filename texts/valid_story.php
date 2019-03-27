@@ -43,7 +43,7 @@ if(trim($story->getElementsByTagName("youtubelinkboth")->item(0)->nodeValue) == 
 }
 
 // checking to see if there are other versions of this story
-$otherVersions = $xpath->query("/storycorpus/story/storytitle[text()='" . $storytitle . "'] and ./approved[text()='True']/.."); 
+$otherVersions = $xpath->query("/storycorpus/story[storytitle='" . $storytitle . "' and approved='True']"); 
 
 // okay, this takes a bit of explaining. In order for the modals to work, they cannot be nested within an element
 // with fixed positioning (like a carousel item). Hence, we need to build the modals outside of the loop where the carousel items 
@@ -155,7 +155,7 @@ $modalInfo = array();
 			echo '<div id="storyCarousel" class="carousel slide" data-ride="carousel" data-interval="false">';
 
 			// this block adds in the little things that you can click on to go from one version to another
-			'<ol class="carousel-indicators"><li data-target="#storyCarousel" data-slide-to="0" class="active"></li>'; 
+			echo '<ol class="carousel-indicators"><li data-target="#storyCarousel" data-slide-to="0" class="active"></li>'; 
 			// for each story beyond the main one, add an li for it
 			for($storyCount = 1; $storyCount < $otherVersions->length; $storyCount++){
 				echo '<li data-target="#storyCarousel" data-slide-to="' . $storyCount . '"></li>';
