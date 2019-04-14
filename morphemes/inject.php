@@ -65,26 +65,38 @@ elseif ($_POST['type'] == 'morphemeDBPhrasicon') {
 		}
 		// We will check to see if the current phrasicon entry is in morpheme database. 
 		// First, we have to replace any curly quotes with straight ones.
+		$originalPhraseSource = trim(str_replace("‘", "'", str_replace("’", "'", str_replace("(", "", str_replace(")", "", $entry->nodeValue)))));
 		$phraseSource = trim($entry->nodeValue);
+		$phraseSource = str_replace("(", "", $phraseSource);
+		$phraseSource = str_replace(")", "", $phraseSource);
 		$phraseSource = str_replace("‘", "'", $phraseSource);
 		$phraseSource = str_replace("’", "'", $phraseSource);
+		$phraseSource = trim($phraseSource, "-");
 
 		$phraseGlossId = $entry->getAttribute("id");
-		$phraseGloss = trim($phrasiconXPath->query("//g[@id =\"$phraseGlossId\"]")->item(0)->nodeValue);
+		$glossResult = $phrasiconXPath->query("//g[@id =\"$phraseGlossId\"]")->item(0)->nodeValue;
+		$originalPhraseGloss = trim(str_replace("‘", "'", str_replace("’", "'", str_replace("(", "", str_replace(")", "", $glossResult)))));
+		$phraseGloss = trim($glossResult);
+		$phraseGloss = str_replace("(", "", $phraseGloss);
+		$phraseGloss = str_replace(")", "", $phraseGloss);
 		$phraseGloss = str_replace("‘", "'", $phraseGloss);
 		$phraseGloss = str_replace("’", "'", $phraseGloss);
+		$phraseGloss = trim($phraseGloss, "-");
+
+		if(substr($originalPhraseSource, 0, 1) == "-"){
+			$phraseAffix = "suffix";
+		} elseif(substr($originalPhraseSource, -1, 1) == "-"){
+			$phraseAffix = "prefix";
+		} else{
+			$phraseAffix = "root";
+		}
 		// We set a variable equal to false, and it is set to true if a match is found.
 		$foundInDB = false; 
 
 		// We will loop through the morpheme database looking for a match. 	
 		foreach($morphemeEntries as $existingMorpheme){
 			$source = trim($existingMorpheme->getElementsByTagName("source")->item(0)->nodeValue);
-			$source = str_replace("‘", "'", $source);
-			$source = str_replace("’", "'", $source);
-
 			$gloss = trim($existingMorpheme->getElementsByTagName("gloss")->item(0)->nodeValue);
-			$gloss = str_replace("‘", "'", $gloss);
-			$gloss = str_replace("’", "'", $gloss);
 
 			// if we find a match, we will set our variable to be true and break out of the morpheme DB loop.
 			if(($source == $phraseSource) && ($gloss == $phraseGloss)){
@@ -92,6 +104,12 @@ elseif ($_POST['type'] == 'morphemeDBPhrasicon') {
 				// Here, we mark the existing morpheme database entry to note that it occurs in the Phrasicon
 				$inPhrasicon = $existingMorpheme->getElementsByTagName("phrasicon")->item(0);
 				$inPhrasicon->nodeValue .= $entry->parentNode->parentNode->getAttribute("id") . ",";
+				
+				// check to see if we need to change the affix tag
+				$existingAffix = $existingMorpheme->getElementsByTagName("affix")->item(0)->nodeValue;
+				if(strpos($existingAffix, $phraseAffix) === FALSE){
+					$existingMorpheme->getElementsByTagName("affix")->item(0)->nodeValue = $existingAffix . "," . $phraseAffix;
+				}
 				break;
 			}
 		}
@@ -135,15 +153,7 @@ elseif ($_POST['type'] == 'morphemeDBPhrasicon') {
 			$newMorphemeS = $morphemeXmlDoc->createElement("storycorpus");
 			$newMorphemeEntry->appendChild($newMorphemeS);
 			
-			$newMorphemeAffix = $morphemeXmlDoc->createElement("affix");
-			
-			if(substr($phraseSource, 0, 1) == "-"){
-				$newMorphemeAffix->nodeValue = "suffix";
-			} elseif(substr($phraseSource, -1, 1) == "-"){
-				$newMorphemeAffix->nodeValue = "prefix";
-			} else{
-				$newMorphemeAffix->nodeValue = "root";
-			}
+			$newMorphemeAffix = $morphemeXmlDoc->createElement("affix", $phraseAffix);
 			$newMorphemeEntry->appendChild($newMorphemeAffix);
 			
 			$morphemeRootNode->appendChild($newMorphemeEntry);
@@ -170,13 +180,29 @@ elseif ($_POST['type'] == 'morphemeDBPhrasicon') {
 		}
 		// We will check to see if in morpheme database. we will match the Pomo and the English, hence, if either is not a match,
 		// we will add a new morpheme. We first convert any curly quote marks to straight ones. Our language has ejectives, so making sure the quote marks are all the same was critical.
+		$originalDictSource = trim(str_replace("‘", "'", str_replace("’", "'", str_replace("(","", str_replace(")","", $entry->getElementsByTagName("orth")->item(0)->nodeValue)))));
 		$dictSource = trim($entry->getElementsByTagName("orth")->item(0)->nodeValue);
 		$dictSource = str_replace("‘", "'", $dictSource);
 		$dictSource = str_replace("’", "'", $dictSource);
+		$dictSource = str_replace("(", "", $dictSource);
+		$dictSource = str_replace(")", "", $dictSource);
+		$dictSource = trim($dictSource, "-");
 
+		$originalDictGloss = trim(str_replace("‘", "'", str_replace("’", "'", str_replace(")", "", str_replace("(","", $entry->getElementsByTagName("quote")->item(0)->nodeValue)))));
 		$dictGloss = trim($entry->getElementsByTagName("quote")->item(0)->nodeValue);
 		$dictGloss = str_replace("‘", "'", $dictGloss);
 		$dictGloss = str_replace("’", "'", $dictGloss);
+		$dictGloss = str_replace("(", "", $dictGloss);
+		$dictGloss = str_replace(")", "", $dictGloss);
+		$dictGloss = trim($dictGloss, "-");
+
+		if(substr($originalDictSource, 0, 1) == "-"){
+			$dictAffix = "suffix";
+		} elseif(substr($originalDictSource, -1, 1) == "-"){
+			$dictAffix = "prefix";
+		} else{
+			$dictAffix = "root";
+		}
 
 		// We set a variable equal to false.
 		$foundInDB = false; 
@@ -184,17 +210,19 @@ elseif ($_POST['type'] == 'morphemeDBPhrasicon') {
 		// We will loop through the database looking for a match. 	
 		foreach($morphemeEntries as $existingMorpheme){
 			$source = trim($existingMorpheme->getElementsByTagName("source")->item(0)->nodeValue);
-			$source = str_replace("‘", "'", $source);
-			$source = str_replace("’", "'", $source);
-
 			$gloss = trim($existingMorpheme->getElementsByTagName("gloss")->item(0)->nodeValue);
-			$gloss = str_replace("‘", "'", $gloss);
-			$gloss = str_replace("’", "'", $gloss);
+
 			// if we find a match, we will set our variable to be true and break out of the morpheme database loop.
 			if(($source == $dictSource) && ($gloss == $dictGloss)){
 				$foundInDB = true; 
 				$inDictionary = $existingMorpheme->getElementsByTagName("dictionary")->item(0);
 				$inDictionary->nodeValue .= $entry->getAttribute("id");
+				
+				// check to see if we need to change the affix tag
+				$existingAffix = $existingMorpheme->getElementsByTagName("affix")->item(0)->nodeValue;
+				if(strpos($existingAffix, $dictAffix) === FALSE){
+					$existingMorpheme->getElementsByTagName("affix")->item(0)->nodeValue = $existingAffix . "," . $dictAffix;
+				}
 				break;
 			}
 		}
@@ -238,15 +266,7 @@ elseif ($_POST['type'] == 'morphemeDBPhrasicon') {
 			$newMorphemeS = $morphemeXmlDoc->createElement("storycorpus");
 			$newMorphemeEntry->appendChild($newMorphemeS);
 			
-			$newMorphemeAffix = $morphemeXmlDoc->createElement("affix");
-			
-			if(substr($dictSource, 0, 1) == "-"){
-				$newMorphemeAffix->nodeValue = "suffix";
-			} elseif(substr($dictSource, -1, 1) == "-"){
-				$newMorphemeAffix->nodeValue = "prefix";
-			} else{
-				$newMorphemeAffix->nodeValue = "root";
-			}
+			$newMorphemeAffix = $morphemeXmlDoc->createElement("affix", $dictAffix);
 			$newMorphemeEntry->appendChild($newMorphemeAffix);
 			
 			$morphemeRootNode->appendChild($newMorphemeEntry);
@@ -266,31 +286,49 @@ elseif ($_POST['type'] == 'morphemeDBPhrasicon') {
 		}
 		// We will check to see if the morpheme is in morpheme database. We will match the Pomo and the English, hence, if either is not a match,
 		// we will add a new morpheme
+		$originalStorySource = trim(str_replace("‘", "'", str_replace("’", "'", str_replace(")","", str_replace("(","",$entry->getElementsByTagName("m")->item(0)->nodeValue)))));
 		$storySource = trim($entry->getElementsByTagName("m")->item(0)->nodeValue);
 		$storySource = str_replace("‘", "'", $storySource);
 		$storySource = str_replace("’", "'", $storySource);
+		$storySource = str_replace("(", "", $storySource);
+		$storySource = str_replace(")", "", $storySource);
+		$storySource = trim($storySource, "-");
 
+		$originalStoryGloss = trim(str_replace("‘", "'", str_replace("’", "'", str_replace("(","", str_replace(")", "", $entry->getElementsByTagName("g")->item(0)->nodeValue)))));
 		$storyGloss = trim($entry->getElementsByTagName("g")->item(0)->nodeValue);
 		$storyGloss = str_replace("‘", "'", $storyGloss);
 		$storyGloss = str_replace("’", "'", $storyGloss);
+		$storyGloss = str_replace("(", "", $storyGloss);
+		$storyGloss = str_replace(")", "", $storyGloss);
+		$storyGloss = trim($storyGloss, "-");
+
+		if(substr($originalStorySource, 0, 1) == "-"){
+			$storyAffix = "suffix";
+		} elseif(substr($originalStorySource, -1, 1) == "-"){
+			$storyAffix = "prefix";
+		} else{
+			$storyAffix = "root";
+		}
+		
 		// We will set a variable equal to false.
 		$foundInDB = false; 
 
 		// We will loop through the database looking for a match. 	
 		foreach($morphemeEntries as $existingMorpheme){
 			$source = trim($existingMorpheme->getElementsByTagName("source")->item(0)->nodeValue);
-			$source = str_replace("‘", "'", $source);
-			$source = str_replace("’", "'", $source);
-
 			$gloss = trim($existingMorpheme->getElementsByTagName("gloss")->item(0)->nodeValue);
-			$gloss = str_replace("‘", "'", $gloss);
-			$gloss = str_replace("’", "'", $gloss);
 
 			// if we find a match, we will set our variable to be true and break out of the morpheme database loop.
 			if(($source == $storySource) && ($gloss == $storyGloss)){
 				$foundInDB = true; 
 				$inStoryCorpus = $existingMorpheme->getElementsByTagName("storycorpus")->item(0);
 				$inStoryCorpus->nodeValue .= $entry->parentNode->parentNode->parentNode->getAttribute("id") . ",";
+				
+				// check to see if we need to change the affix tag
+				$existingAffix = $existingMorpheme->getElementsByTagName("affix")->item(0)->nodeValue;
+				if(strpos($existingAffix, $storyAffix) === FALSE){
+					$existingMorpheme->getElementsByTagName("affix")->item(0)->nodeValue = $existingAffix . "," . $storyAffix;
+				}
 				break;
 			}
 		}
@@ -334,15 +372,7 @@ elseif ($_POST['type'] == 'morphemeDBPhrasicon') {
 			$newMorphemeS->nodeValue = $entry->parentNode->parentNode->parentNode->getAttribute("id") . ",";
 			$newMorphemeEntry->appendChild($newMorphemeS);
 			
-			$newMorphemeAffix = $morphemeXmlDoc->createElement("affix");
-			
-			if(substr($storySource, 0, 1) == "-"){
-				$newMorphemeAffix->nodeValue = "suffix";
-			} elseif(substr($storySource, -1, 1) == "-"){
-				$newMorphemeAffix->nodeValue = "prefix";
-			} else{
-				$newMorphemeAffix->nodeValue = "root";
-			}
+			$newMorphemeAffix = $morphemeXmlDoc->createElement("affix", $storyAffix);
 			$newMorphemeEntry->appendChild($newMorphemeAffix);
 			
 			$morphemeRootNode->appendChild($newMorphemeEntry);
