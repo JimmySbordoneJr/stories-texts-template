@@ -595,77 +595,98 @@ if($_POST['editID']!="" || ($_POST['checkSubmission'] == $_POST['editID'])){
 	$edit_g = $storycorpusDoc->createTextNode(trim($_POST['edit_g']))->nodeValue;
 
 	// check to see if we need to add this morpheme to our morpheme database
-	$resultMorph = $morphemeXpath->query("/morphemedatabase/morpheme");
-	$needToEnter = true;
-	foreach($resultMorph as $existingMorpheme){
-		$existingSource = trim($existingMorpheme->getElementsByTagName("source")->item(0)->nodeValue);
-		$existingSource = str_replace("‘", "'", $existingSource); // removing curly quotes is probably overkill here... 
-		$existingSource = str_replace("’", "'", $existingSource); // removing curly quotes is probably overkill here... 
+				$resultMorph = $morphemeXpath->query("/morphemedatabase/morpheme");
+				$needToEnter = true;
 
-		$existingGloss = trim($existingMorpheme->getElementsByTagName("gloss")->item(0)->nodeValue);
-		$existingGloss = str_replace("‘", "'", $existingGloss); // removing curly quotes is probably overkill here... 
-		$existingGloss = str_replace("’", "'", $existingGloss); // removing curly quotes is probably overkill here... 
-		if(($edit_m === $existingSource) && ($edit_g === $existingGloss)){
-			$needToEnter = false;
-			$existingMorpheme->getElementsByTagName("storycorpus")->item(0)->nodeValue = $existingMorpheme->getElementsByTagName("storycorpus")->item(0)->nodeValue . "massedit,";
-		}
-	}
+				$originalEntrySource = trim(str_replace("‘", "'", str_replace("’", "'", str_replace("(", "", str_replace(")", "", $edit_m)))));
+				$entrySource = trim($edit_m);
+				$entrySource = str_replace("‘", "'", $entrySource);
+				$entrySource = str_replace("’", "'", $entrySource);
+				$entrySource = str_replace(")", "", $entrySource);
+				$entrySource = str_replace("(", "", $entrySource);
+				$entrySource = trim($entrySource, "-");
+				
+				$originalEntryGloss = trim(str_replace("‘", "'", str_replace("’", "'", str_replace("(", "", str_replace(")", "", $edit_g)))));
+				$entryGloss = trim($edit_g);
+				$entryGloss = str_replace("‘", "'", $entryGloss);
+				$entryGloss = str_replace("’", "'", $entryGloss);
+				$entryGloss = str_replace(")", "", $entryGloss);
+				$entryGloss = str_replace("(", "", $entryGloss);
+				$entryGloss = trim($entryGloss, "-");
 
-	if($needToEnter == true){
-		$resultMorph = $morphemeXpath->query("/morphemedatabase/morpheme[last()]");
-		if($resultMorph->item(0)){
-			$idMorph = ($resultMorph->item(0)->getAttribute('id')) + 1;
-		} else{
-			$idMorph = 1;
-		} 
+				if(substr($originalEntrySource, 0, 1) == "-"){
+					$entryAffix = "suffix";
+				} elseif(substr($originalEntrySource, -1, 1) == "-"){
+					$entryAffix = "prefix";
+				} else{
+					$entryAffix = "root";
+				}
 
-		$entryMorph = $morphemeXmlDoc->createElement("morpheme");
-		$entryMorph->setAttribute("id",$idMorph);
-						
-		$entryMorphSource = $morphemeXmlDoc->createElement("source");
-		$entryMorphSourceText = $morphemeXmlDoc->createTextNode($edit_m);
-		$entryMorphSource->appendChild($entryMorphSourceText);
-		$entryMorph->appendChild($entryMorphSource);
-						
-		$entryMorphGloss = $morphemeXmlDoc->createElement("gloss");
-		$entryMorphGlossText = $morphemeXmlDoc->createTextNode($edit_g);
-		$entryMorphGloss->appendChild($entryMorphGlossText);
-		$entryMorph->appendChild($entryMorphGloss);
-						
-		$entryMorphRoot = $morphemeXmlDoc->createElement("root");
-		$entryMorphRootText = $morphemeXmlDoc->createTextNode($edit_m);
-		$entryMorphRoot->appendChild($entryMorphRootText);
-		$entryMorph->appendChild($entryMorphRoot);
-						
-		$entryMorphHypernym = $morphemeXmlDoc->createElement("hypernym");
-		$entryMorphHypernymText = $morphemeXmlDoc->createTextNode($edit_g);
-		$entryMorphHypernym->appendChild($entryMorphHypernymText);
-		$entryMorph->appendChild($entryMorphHypernym);
-						
-		$entryMorphPhrasicon = $morphemeXmlDoc->createElement("phrasicon");
-		$entryMorph->appendChild($entryMorphPhrasicon);
-						
-		$entryMorphDictionary = $morphemeXmlDoc->createElement("dictionary");
-		$entryMorph->appendChild($entryMorphDictionary);
-						
-		$entryMorphStoryCorpus = $morphemeXmlDoc->createElement("storycorpus", ("massedit,")); // maybe this should be mass edit instead
-		$entryMorph->appendChild($entryMorphStoryCorpus);					
+				foreach($resultMorph as $existingMorpheme){
+					$existingSource = trim($existingMorpheme->getElementsByTagName("source")->item(0)->nodeValue);
+					$existingGloss = trim($existingMorpheme->getElementsByTagName("gloss")->item(0)->nodeValue);
 
-		if(substr($edit_m, 0, 1) == "-"){
-			$entryMorphAffix = $morphemeXmlDoc->createElement("affix", "suffix");
-		} elseif(substr($edit_m, -1, 1) == "-"){
-			$entryMorphAffix = $morphemeXmlDoc->createElement("affix", "prefix");
-		} else{
-			$entryMorphAffix = $morphemeXmlDoc->createElement("affix", "root");
-		}
-		$entryMorph->appendChild($entryMorphAffix);
-		$morphemeRootNode = $morphemeXpath->query("//morphemedatabase")->item(0);
-		$morphemeRootNode->appendChild($entryMorph);
-	}
+					if(($entrySource == $existingSource) && ($entryGloss == $existingGloss)){
+						$needToEnter = false;
+						$existingMorpheme->getElementsByTagName("storycorpus")->item(0)->nodeValue = $existingMorpheme->getElementsByTagName("storycorpus")->item(0)->nodeValue . $id . ",";
+						
+						// check to see if we need to change the affix tag
+						$existingAffix = $existingMorpheme->getElementsByTagName("affix")->item(0)->nodeValue;
+						if(strpos($existingAffix, $entryAffix) === FALSE){
+							$existingMorpheme->getElementsByTagName("affix")->item(0)->nodeValue = $existingAffix . "," . $entryAffix;
+						}
+						break;
+					}
+				}
+				if($needToEnter == true){
+					$resultMorph = $morphemeXpath->query("/morphemedatabase/morpheme[last()]");
+					if($resultMorph->item(0)){
+						$idMorph = ($resultMorph->item(0)->getAttribute('id')) + 1;
+					} else{
+						$idMorph = 1;
+					} 
 
-	$morphemeMetadata = $morphemeXpath->query("//modified")->item(0); 
-	$morphemeMetadata->nodeValue = date("Y-m-d");	
-	$morphemeXmlDoc->save($morphemeFile);
+					$entryMorph = $morphemeXmlDoc->createElement("morpheme");
+					$entryMorph->setAttribute("id",$idMorph);
+					
+					$entryMorphSource = $morphemeXmlDoc->createElement("source");
+					$entryMorphSourceText = $morphemeXmlDoc->createTextNode($entrySource);
+					$entryMorphSource->appendChild($entryMorphSourceText);
+					$entryMorph->appendChild($entryMorphSource);
+					
+					$entryMorphGloss = $morphemeXmlDoc->createElement("gloss");
+					$entryMorphGlossText = $morphemeXmlDoc->createTextNode($entryGloss);
+					$entryMorphGloss->appendChild($entryMorphGlossText);
+					$entryMorph->appendChild($entryMorphGloss);
+					
+					$entryMorphRoot = $morphemeXmlDoc->createElement("root");
+					$entryMorphRootText = $morphemeXmlDoc->createTextNode($entrySource);
+					$entryMorphRoot->appendChild($entryMorphRootText);
+					$entryMorph->appendChild($entryMorphRoot);
+					
+					$entryMorphHypernym = $morphemeXmlDoc->createElement("hypernym");
+					$entryMorphHypernymText = $morphemeXmlDoc->createTextNode($entryGloss);
+					$entryMorphHypernym->appendChild($entryMorphHypernymText);
+					$entryMorph->appendChild($entryMorphHypernym);
+					
+					$entryMorphPhrasicon = $morphemeXmlDoc->createElement("phrasicon");
+					$entryMorph->appendChild($entryMorphPhrasicon);
+					
+					$entryMorphDictionary = $morphemeXmlDoc->createElement("dictionary");
+					$entryMorph->appendChild($entryMorphDictionary);
+					
+					$entryMorphStoryCorpus = $morphemeXmlDoc->createElement("storycorpus", ($id . ","));
+					$entryMorph->appendChild($entryMorphStoryCorpus);					
+					
+					$entryMorphAffix = $morphemeXmlDoc->createElement("affix", $entryAffix);
+					$entryMorph->appendChild($entryMorphAffix);
+					
+					$morphemeRootNode = $morphemeXpath->query("//morphemedatabase")->item(0);
+					$morphemeRootNode->appendChild($entryMorph);
+				}
+				$morphemeMetadata = $morphemeXpath->query("//modified")->item(0); 
+				$morphemeMetadata->nodeValue = date("Y-m-d");	
+				$morphemeXmlDoc->save($morphemeFile);
 	// end of check for morphemeDB
 	
 	// if the user actually filled in a morpheme to replace, we will look up all instances where the source language text matches that morpheme
