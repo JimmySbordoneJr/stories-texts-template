@@ -485,25 +485,44 @@ if($_POST['editID']!="" || ($_POST['checkSubmission'] == $_POST['editID'])){
 					// check to see if we need to add this morpheme to our morpheme database
 					$resultMorph = $morphemeXpath->query("/morphemedatabase/morpheme");
 					$needToEnter = true;
+					
+					$originalEntrySource = trim(str_replace("‘", "'", str_replace("’", "'", str_replace("(", "", str_replace(")", "", $currentline['morpheme'][$y]['m'])))));
+					$entrySource = trim($currentline['morpheme'][$y]['m']);
+					$entrySource = str_replace("‘", "'", $entrySource);
+					$entrySource = str_replace("’", "'", $entrySource);
+					$entrySource = str_replace(")", "", $entrySource);
+					$entrySource = str_replace("(", "", $entrySource);
+					$entrySource = trim($entrySource, "-");
+
+					$originalEntryGloss = trim(str_replace("‘", "'", str_replace("’", "'", str_replace("(", "", str_replace(")", "", $currentline['morpheme'][$y]['g'])))));
+					$entryGloss = trim($currentline['morpheme'][$y]['g']);
+					$entryGloss = str_replace("‘", "'", $entryGloss);
+					$entryGloss = str_replace("’", "'", $entryGloss);
+					$entryGloss = str_replace(")", "", $entryGloss);
+					$entryGloss = str_replace("(", "", $entryGloss);
+					$entryGloss = trim($entryGloss, "-");
+
+					if(substr($originalEntrySource, 0, 1) == "-"){
+						$entryAffix = "suffix";
+					} elseif(substr($originalEntrySource, -1, 1) == "-"){
+						$entryAffix = "prefix";
+					} else{
+						$entryAffix = "root";
+					}
 					foreach($resultMorph as $existingMorpheme){
-						$entrySource = trim($currentline['morpheme'][$y]['m']);
-						$entrySource = str_replace("‘", "'", $entrySource);
-						$entrySource = str_replace("’", "'", $entrySource);
-
-						$entryGloss = trim($currentline['morpheme'][$y]['g']);
-						$entryGloss = str_replace("‘", "'", $entryGloss);
-						$entryGloss = str_replace("’", "'", $entryGloss);
-
 						$existingSource = trim($existingMorpheme->getElementsByTagName("source")->item(0)->nodeValue);
-						$existingSource = str_replace("‘", "'", $existingSource);
-						$existingSource = str_replace("’", "'", $existingSource);
-
 						$existingGloss = trim($existingMorpheme->getElementsByTagName("gloss")->item(0)->nodeValue);
-						$existingGloss = str_replace("‘", "'", $existingGloss);
-						$existingGloss = str_replace("’", "'", $existingGloss);
+						
 						if(($entrySource == $existingSource) && ($entryGloss == $existingGloss)){
 							$needToEnter = false;
 							$existingMorpheme->getElementsByTagName("storycorpus")->item(0)->nodeValue = $existingMorpheme->getElementsByTagName("storycorpus")->item(0)->nodeValue . $id . ",";
+							
+							// check to see if we need to change the affix tag
+							$existingAffix = $existingMorpheme->getElementsByTagName("affix")->item(0)->nodeValue;
+							if(strpos($existingAffix, $entryAffix) === FALSE){
+								$existingMorpheme->getElementsByTagName("affix")->item(0)->nodeValue = $existingAffix . "," . $entryAffix;
+							}
+							break;
 						}
 					}
 					if($needToEnter == true){
@@ -546,14 +565,9 @@ if($_POST['editID']!="" || ($_POST['checkSubmission'] == $_POST['editID'])){
 						$entryMorphStoryCorpus = $morphemeXmlDoc->createElement("storycorpus", ($id . ","));
 						$entryMorph->appendChild($entryMorphStoryCorpus);					
 
-						if(substr($entrySource, 0, 1) == "-"){
-							$entryMorphAffix = $morphemeXmlDoc->createElement("affix", "suffix");
-						} elseif(substr($entrySource, -1, 1) == "-"){
-							$entryMorphAffix = $morphemeXmlDoc->createElement("affix", "prefix");
-						} else{
-							$entryMorphAffix = $morphemeXmlDoc->createElement("affix", "root");
-						}
+						$entryMorphAffix = $morphemeXmlDoc->createElement("affix", $entryAffix);
 						$entryMorph->appendChild($entryMorphAffix);
+						
 						$morphemeRootNode = $morphemeXpath->query("//morphemedatabase")->item(0);
 						$morphemeRootNode->appendChild($entryMorph);
 					}
