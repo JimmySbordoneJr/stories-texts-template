@@ -486,7 +486,7 @@ if($otherVersions->length > 1){
 					if(trim($currentLine->getElementsByTagName("note")->item(0)->nodeValue) != ""){
 						$hintText = "<button type=\"button\" class=\"btn btn-sm btn-lightbulb\" data-toggle=\"modal\" data-target=\"#Note" . $i . "_" . $storyCount2 . "\"><i class=\"fas fa-lightbulb\"></i></button>";
 						$modalId = "Note" . $i . "_" . $storyCount2;
-						$newModal = array($modalId, $currentLine->note);
+						$newModal = array($modalId, $currentLine->getElementsByTagName("note")->item(0)->nodeValue);
 						array_push($modalInfo, $newModal);
 					}
 					echo '<div class="row"><div class="col-lg-2 col-xs-12"><div class="row"><div class="col-1">' . $i . '</div><div class="col">';
