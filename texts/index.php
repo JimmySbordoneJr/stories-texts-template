@@ -25,7 +25,7 @@ if($count_drafts > 1){
 } elseif($count_drafts < 1){
 	$count_text .= " and 0 unpublished drafts";
 } else{
-	$count_text .= " and " . $count . " unpublished draft";
+	$count_text .= " and " . $count_drafts . " unpublished draft";
 } 
 ?>
 
