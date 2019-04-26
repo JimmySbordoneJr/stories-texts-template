@@ -398,7 +398,7 @@ if($otherVersions->length > 1){
 												echo '<div class="col-lg-3 col-xs-4">&nbsp; </div>';
 											}
 											// 13. Replace with your website name
-											echo '<div class="col-lg-9 col-xs-8"><a class="text-light" target="_blank" href="http://yourwebsite.com/texts/secretIndex.php?lang=translation&searchTerm=Speaker:' . str_replace(" ", "_", $narratorArray[$n]) . '">' . $narratorArray[$n] . '</a></div>';
+											echo '<div class="col-lg-9 col-xs-8"><a class="text-light" target="_blank" href="http://yourwebsite.com/texts/secretIndex.php?lang=translation&searchTerm=Speaker:' . str_replace(" ", "_", $narrator_array[$n]) . '">' . $narrator_array[$n] . '</a></div>';
 										}
 									} else{
 										echo '<div class="col-lg-3 col-xs-4">Speaker:</div>';
