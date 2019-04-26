@@ -702,7 +702,7 @@
 <script src="../js/addMorpheme.js"></script>
 	
 <!-- this script suggests translations for source language morphemes -->
-<script src="../js/suggestEnglish.js"></script>
+<script src="../js/suggestTranslation.js"></script>
 	
 <!-- this script cleans up form inputs and submits them for all sections of this page except for the file uploads -->
 <script src="../js/formSubmissionFunctions.js"></script>
