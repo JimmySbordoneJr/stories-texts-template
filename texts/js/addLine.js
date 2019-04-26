@@ -236,6 +236,9 @@ function addLine(num) {
 	for (var l = (newNumber - 1); l >= num; l--) {
 		// we have to go from the last existing line down to num and slide each line's values up to the next line
 
+		// speaker dropdown, 
+		document.getElementById(("line" + (l + 1) + "_speakerDropDown")).value = document.getElementById(("line" + l + "_speakerDropDown")).value;
+		
 		// source,
 		document.getElementById(("line" + (l + 1) + "_source")).value = document.getElementById(("line" + l + "_source")).value;
 		// translation, 
@@ -264,6 +267,7 @@ function addLine(num) {
 		}
 	}
 	// now, we just have to clear out the num-th line
+	document.getElementById(("line" + num + "_speakerDropDown")).value = "";	
 	document.getElementById(("line" + num + "_source")).value = "";
 	document.getElementById(("line" + num + "_translation")).value = "";
 	document.getElementById(("line" + num + "_audio")).value = "";
@@ -509,6 +513,9 @@ function addEditLine(num) {
 	// loop here to adjust move every value from num to the last line up by one. Go from the last one down to num			
 	for (var l = (newNumber - 1); l >= num; l--) {
 		// we have to go from the last existing line down to num and slide each line's values up to the next line
+		
+		// speaker dropdown,
+		document.getElementById(("editLine" + (l + 1) + "_speakerDropDown")).value = document.getElementById(("editLine" + l + "_speakerDropDown")).value;
 
 		// source,
 		document.getElementById(("editLine" + (l + 1) + "_source")).value = document.getElementById(("editLine" + l + "_source")).value;
@@ -539,6 +546,7 @@ function addEditLine(num) {
 		}
 	}
 	// now, we just have to clear out the num-th line
+	document.getElementById(("editLine" + num + "_speakerDropDown")).value = "";	
 	document.getElementById(("editLine" + num + "_source")).value = "";
 	document.getElementById(("editLine" + num + "_translation")).value = "";
 	document.getElementById(("editLine" + num + "_audio")).value = "";
